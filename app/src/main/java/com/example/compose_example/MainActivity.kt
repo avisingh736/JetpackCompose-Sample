@@ -11,8 +11,10 @@ import androidx.ui.graphics.Color
 import androidx.ui.layout.*
 import androidx.ui.material.MaterialTheme
 import androidx.ui.res.imageResource
+import androidx.ui.text.ParagraphStyle
 import androidx.ui.text.TextStyle
 import androidx.ui.text.font.FontFamily
+import androidx.ui.text.style.TextAlign
 import androidx.ui.tooling.preview.Preview
 
 class MainActivity : AppCompatActivity() {
@@ -20,31 +22,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                Greeting("Android")
+                MyCustomDesign()
             }
-        }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Column(
-            crossAxisSize = LayoutSize.Expand,
-            modifier = Spacing(16.dp)
-    ) {
-        Container(expanded = true, height = 150.dp) {
-            Clip(shape = RoundedCornerShape(size = 5.dp)) {
-                DrawImage(+imageResource(R.drawable.abc_1))
-            }
-        }
-        Row(mainAxisAlignment = MainAxisAlignment.Center,
-            mainAxisSize = LayoutSize.Expand) {
-            Text(text = "Hello $name!",style = TextStyle(color = Color.DarkGray, fontSizeScale = 2.toFloat(), fontSize = 16.sp, fontFamily = FontFamily.Serif))
-        }
-        Row(mainAxisAlignment = MainAxisAlignment.Center,
-            mainAxisSize = LayoutSize.Expand,
-            modifier = Spacing(16.dp)) {
-            Text(text = "This is an example of android jetpack compose toolkit",style = TextStyle(color = Color.DarkGray, fontSize = 16.sp, fontFamily = FontFamily.Serif))
         }
     }
 }
@@ -53,6 +32,59 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     MaterialTheme {
-        Greeting("Android")
+        MyCustomDesign()
     }
+}
+
+@Composable
+fun MyCustomDesign() {
+    DemoImage()
+}
+
+@Composable
+fun DemoImage() {
+    Column(
+        crossAxisSize = LayoutSize.Expand,
+        modifier = Spacing(16.dp)
+    ) {
+        Container(expanded = true, height = 150.dp,alignment = Alignment.BottomCenter) {
+            Clip(shape = RoundedCornerShape(size = 5.dp)) {
+                DrawImage(+imageResource(R.drawable.abc_1))
+            }
+            DemoText(name = "Android")
+        }
+    }
+}
+
+@Composable
+fun DemoText(name: String) {
+    Column(
+        crossAxisSize = LayoutSize.Expand
+    ) {
+        Container(expanded = true) {
+            Text(
+                text = "Hello $name!",
+                style = TextStyle(
+                    color = Color.LightGray,
+                    fontSizeScale = 1.2.toFloat(),
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily.Serif
+                )
+            )
+        }
+        Container(
+            expanded = true, padding = EdgeInsets(0.dp,0.dp,0.dp,5.dp)
+        ) {
+            Text(
+                text = "This is an example of android jetpack compose toolkit, This is an example of android jetpack compose toolkit",
+                paragraphStyle = ParagraphStyle(textAlign = TextAlign.Center),
+                style = TextStyle(
+                    color = Color.LightGray,
+                    fontSize = 16.sp,
+                    fontFamily = FontFamily.Serif
+                )
+            )
+        }
+    }
+
 }
